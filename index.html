@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jason Kang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --ink: #111111;
+    --muted: #555555;
+    --link: #1a4a8a;
+    --link-hover: #0d2f5e;
+    --rule: #dddddd;
+    --section-gap: 1.6rem;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  .page {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 3.5rem 2rem 5rem;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 2.5rem;
+    align-items: start;
+    margin-bottom: 1.8rem;
+  }
+
+  @media (max-width: 580px) {
+    .header { grid-template-columns: 1fr; }
+    .photo-col { order: -1; }
+    .photo-wrap { width: 140px; }
+  }
+
+  .name-block h1 {
+    font-size: 1.9rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .name-block p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--ink);
+  }
+
+  .name-block a {
+    color: var(--link);
+    text-decoration: none;
+  }
+
+  .name-block a:hover { color: var(--link-hover); text-decoration: underline; }
+
+  .contact-line {
+    margin-top: 0.9rem;
+    font-size: 0.95rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 1.1rem;
+  }
+
+  .contact-line a {
+    color: var(--link);
+    text-decoration: none;
+  }
+
+  .contact-line a:hover { text-decoration: underline; }
+
+  /* Photo */
+  .photo-col {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .photo-wrap { width: 200px; }
+
+  .photo-wrap img {
+    width: 100%;
+    display: block;
+  }
+
+  /* Placeholder — replace with <img src="me.jpg"> when ready */
+  .photo-placeholder {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: #b8c8d8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .photo-placeholder svg {
+    width: 55%;
+    opacity: 0.38;
+  }
+
+  .photo-credit {
+    margin-top: 0.3rem;
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-align: right;
+    font-family: 'Lato', sans-serif;
+  }
+
+  /* ── Section headings ── */
+  h2 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    margin-bottom: 0.8rem;
+    color: var(--ink);
+  }
+
+  /* ── Paper list ── */
+  .paper-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .paper {
+    padding: 0.55rem 0;
+  }
+
+  .paper-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+
+  .paper-title-row h3 {
+    font-size: 1.05rem;
+    font-weight: 500;
+    font-style: normal;
+    color: var(--link);
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .paper-title-row h3:hover { color: var(--link-hover); }
+
+  /* Triangle toggle — sits below the title row */
+  .toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: none;
+    border: none;
+    padding: 0.1rem 0;
+    margin-top: 0.2rem;
+    cursor: pointer;
+    color: var(--muted);
+    font-size: 0.82rem;
+    font-family: 'Lato', sans-serif;
+    transition: color 0.15s;
+  }
+
+  .toggle-btn:hover { color: var(--link); }
+
+  .toggle-btn .tri {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 8px solid currentColor;
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .paper.open .toggle-btn .tri {
+    transform: rotate(90deg);
+  }
+
+  .coauthors {
+    margin-top: 0.25rem;
+    font-size: 0.93rem;
+    color: var(--ink);
+  }
+
+  .coauthors a { color: var(--link); text-decoration: none; }
+  .coauthors a:hover { text-decoration: underline; }
+
+  /* Smooth expand */
+  .paper-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.32s ease;
+  }
+
+  .paper.open .paper-body { grid-template-rows: 1fr; }
+
+  .paper-body-inner { overflow: hidden; }
+
+  .paper-abstract {
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+    line-height: 1.72;
+    color: var(--ink);
+  }
+
+  .paper-journal {
+    margin-top: 0.5rem;
+    font-size: 0.93rem;
+  }
+
+  .paper-journal em { font-style: italic; }
+  .paper-journal a { color: var(--link); text-decoration: none; }
+  .paper-journal a:hover { text-decoration: underline; }
+
+  .paper-status {
+    margin-top: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .subsume-note {
+    margin-top: 0.4rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .section { margin-bottom: var(--section-gap); }
+</style>
+</head>
+<body>
+<div class="page">
+
+
+
+
+  <!-- HEADER -->
+
+
+  <div class="header">
+    <div class="name-block">
+      <h1>Hi, I'm Jason</h1>
+      <p>I am a PhD candidate in Finance at INSEAD, based in the Fontainebleau campus. Starting this fall, I will be joining SKEMA Business School as an Assistant Professor of Finance.</p>
+      <p><span class="label">Research:</span> My main research area is Market Microstructure. I also work on related topics in asset pricing and information economics.</p>
+      <p>Email: <a href="mailto:jason.kang@insead.edu">jason.kang@insead.edu</a></p>
+      <a href="CV - Kang, Jason.pdf">CV</a>
+    </div>
+
+    <div class="photo-col">
+      <div class="photo-wrap">
+        <!--
+          To add your real photo:
+          1. Place me.jpg in the same folder as index.html
+          2. Replace the .photo-placeholder div below with:
+             <img src="me.jpg" alt="Sergei Glebkin">
+        -->
+        <div class="photo-placeholder">
+          <svg viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="38" r="28" fill="#4a6a8a"/>
+            <ellipse cx="50" cy="115" rx="42" ry="30" fill="#4a6a8a"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PUBLICATIONS -->
+<!--   <div class="section">
+    <h2>Publications</h2>
+    <div class="paper-list">
+
+      <div class="paper">
+        <div class="paper-title-row">
+          <h3>Funding Constraints and Informational Efficiency</h3>
+        </div>
+        <button class="toggle-btn" onclick="togglePaper(this)" aria-label="Expand"><span class="tri"></span> Abstract</button>
+        <div class="coauthors">with <a href="https://sites.google.com/view/naveenrgondhi/home">Naveen Gondhi</a> and <a href="http://johncfkuong.com">John Kuong</a></div>
+        <div class="paper-body"><div class="paper-body-inner">
+          <p class="paper-abstract">We analyze a tractable rational expectations equilibrium model with margin constraints. We argue that constraints affect and are affected by informational efficiency, leading to a novel amplification mechanism. A decline in wealth tightens constraints and reduces investors' incentive to acquire information, lowering price informativeness. Lower informativeness, in turn, increases the risk borne by financiers who fund trades, leading them to further tighten constraints faced by investors. This information spiral leads to (i) significant increases in risk premium and return volatility in crises, when investors' wealth declines, (ii) complementarities in information acquisition in crises, and (iii) complementarities in margin requirements.</p>
+          <p class="paper-journal"><em>Review of Financial Studies</em> (2021), <a href="https://doi.org/10.1093/rfs/hhaa124">34(9): 4269–4322</a></p>
+        </div></div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-title-row">
+          <h3>Simultaneous Multilateral Search</h3>
+        </div>
+        <button class="toggle-btn" onclick="togglePaper(this)" aria-label="Expand"><span class="tri"></span> Abstract</button>
+        <div class="coauthors">with Ji Shen and <a href="http://www.yueshen.me/1cv.html">Bart Zhou Yueshen</a></div>
+        <div class="paper-body"><div class="paper-body-inner">
+          <p class="paper-abstract">This paper studies simultaneous multilateral search (SMS) in over-the-counter (OTC) markets: when searching, an investor contacts several potential counterparties and then trades with the one offering the best quote. Search intensity (how frequently one can search) and search capacity (how many potential counterparties one can contact) affect market qualities differently. Contrasting SMS to bilateral bargaining (BB), the model shows that investors might favor BB over SMS if search intensity is high or in distress. Such preference for BB hurts allocative efficiency and suggests an intrinsic hindrance in the adoption of all-to-all and request-for-quote type of electronic trading in OTC markets.</p>
+          <p class="paper-journal"><em>Review of Financial Studies</em> (2023), <a href="https://doi.org/10.1093/rfs/hhac009">36(2): 571–614</a></p>
+        </div></div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-title-row">
+          <h3>Illiquidity and Higher Cumulants</h3>
+        </div>
+        <button class="toggle-btn" onclick="togglePaper(this)" aria-label="Expand"><span class="tri"></span> Abstract</button>
+        <div class="coauthors">with <a href="https://www.epfl.ch/labs/sfi-sm/">Semyon Malamud</a> and <a href="https://sites.google.com/view/albertoteguia/">Alberto Teguia</a></div>
+        <div class="paper-body"><div class="paper-body-inner">
+          <p class="paper-abstract">We characterize the unique equilibrium in an economy populated by strategic CARA investors who trade multiple risky assets with arbitrarily distributed payoffs. We use our explicit solution to study the joint behaviour of illiquidity of option contracts and show that, contrary to the conventional wisdom, option bid-ask spreads may decrease in risk aversion, physical variance, and open interest but increase after earnings announcements. All these predictions are confirmed empirically using a large panel dataset of US stock options.</p>
+          <p class="paper-journal"><em>Review of Financial Studies</em> (2023), <a href="https://academic.oup.com/rfs/advance-article-abstract/doi/10.1093/rfs/hhac069/6697897">36(5): 2131–2173</a></p>
+        </div></div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-title-row">
+          <h3>When Large Traders Create Noise</h3>
+        </div>
+        <button class="toggle-btn" onclick="togglePaper(this)" aria-label="Expand"><span class="tri"></span> Abstract</button>
+        <div class="coauthors">with <a href="https://sites.google.com/site/johnkuongkcf/home">John Kuong</a></div>
+        <div class="paper-body"><div class="paper-body-inner">
+          <p class="paper-abstract">We consider a market where large investors do not only trade on information about asset fundamentals. When they trade more aggressively, the price becomes less informative. Other investors who learn from prices, in turn, are less concerned about adverse selection and provide more liquidity, causing large investors to trade even more aggressively. This trading complementarity can engender three unconventional results: (i) increased competition among large investors makes all investors worse off, (ii) more precise private information reduces price informativeness, creating complementarities in information acquisition, and (iii) multiple equilibria emerge. Our results have implications for competition and transparency policies in financial markets.</p>
+          <p class="paper-journal"><em>Journal of Financial Economics</em> (2023), <a href="https://doi.org/10.1016/j.jfineco.2023.103709">150(2): 103709</a></p>
+        </div></div>
+      </div>
+
+    </div>
+  </div> -->
+
+  <!-- WORKING PAPERS -->
+  <div class="section">
+    <h2>Working Papers</h2>
+    <div class="paper-list">
+
+      <div class="paper">
+        <div class="paper-title-row">
+          <h3><a href="Papers/JMP - Kang, Jason.pdf" target="_blank">Specific Versus General Purpose Assets Under Uncertainty</a></h3>
+        </div>
+        <button class="toggle-btn" onclick="togglePaper(this)" aria-label="Expand"><span class="tri"></span> Abstract</button>
+        <!-- <div class="coauthors">with <a href="https://www.epfl.ch/labs/sfi-sm/">Semyon Malamud</a> and <a href="https://sites.google.com/view/albertoteguia/">Alberto Teguia</a></div> -->
+        <div class="paper-body"><div class="paper-body-inner">
+          <p class="paper-abstract">Firms face a fundamental trade-off between flexibility and specialization when investing in new employees, equipment and technology. I develop a model in which production inputs differ in the specificity of their use: specific inputs can produce only a single good, while general inputs can produce one of many different goods. General inputs give the firm an option to reallocate assets in the future. The model shows how the expected time of exercise and price of risk attached to this reallocation payoff jointly determine the optimal investment composition. Contrary to conventional wisdom, the model predicts that firms operating in more volatile environments (1) invest more overall and (2) invest more in specific assets. I test and confirm these predictions for human, physical, and knowledge capital in a sample of U.S. firms. Using novel measures of skill specificity derived from job postings, I further show that the relationship between risk and investment specificity varies systematically with proxies for the cost of reallocating workers across geographies and business segments, consistent with the model.</p>
+          <!-- <p class="paper-status">R&amp;R at the <em>Journal of Finance</em></p> -->
+        </div></div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-title-row">
+          <h3><a href="Papers/Paper 2 - Kang, Jason.pdf" target="_blank">Reconciling the Investment-Uncertainty Relationship</a></h3>
+        </div>
+        <button class="toggle-btn" onclick="togglePaper(this)" aria-label="Expand"><span class="tri"></span> Abstract</button>
+        <div class="coauthors">with <a href="https://apps.ualberta.ca/directory/person/avdis">Stathi Avdis</a></div>
+        <div class="paper-body"><div class="paper-body-inner">
+          <p class="paper-abstract">Does uncertainty increase or decrease investment? Empirical evidence remains decidedly mixed, both in the time-series and in the cross-section. I present a dynamic model of investment that unifies these seemingly conflicting facts. Central to the analysis, I use a new statistic$-$the distance to investment$-$which measures how close a project is to having a positive net present value. I derive closed-form expressions for optimal investment under stochastic volatility and find three main results. (1) Over a fixed time horizon, high average uncertainty is associated with higher investment if the initial distance is ``far'', but lower investment if the distance is ``close''. (2) Uncertainty shocks increase investment only when they coincide with higher expected growth rates. (3) In general equilibrium, an uncertainty shock can raise investment during economic contractions, contrary to the partial-equilibrium intuition.</p>
+        </div></div>
+      </div>
+
+      <div class="paper">
+        <div class="paper-title-row">
+          <h3>Does Financial Slack Make Firms More Risk-Averse?</h3>
+        </div>
+        <button class="toggle-btn" onclick="togglePaper(this)" aria-label="Expand"><span class="tri"></span> Abstract</button>
+        <div class="paper-body"><div class="paper-body-inner">
+          <p class="paper-abstract">I study a risk-averse entrepreneur financed by perpetual debt who dynamically chooses between risky and safe investment projects. I derive the entrepreneur's optimal portfolio choice with intermediate consumption, savings, and endogenous default. If the return on the safe project always exceeds debt repayment, I show that the entrepreneur's portfolio share in the risky project is a nonmonotonic function of financial slack. Importantly, due to the concavity of the entrepreneur's utility function, it becomes impossible to incentivize the entrepreneur to take on risky projects with sufficient savings. The model generates predictions on risky project choice during the lifecycle of new firms. </p>
+        </div></div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+  
+  
+  <!-- </div> -->
+
+</div>
+
+<script>
+  function togglePaper(btn) {
+    btn.closest('.paper').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
