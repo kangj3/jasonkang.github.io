@@ -218,13 +218,31 @@
   .paper-abstract {
     margin-top: 0.8rem;
     font-size: 0.95rem;
-    line-height: 1.72;
+    line-height: 1.2;
     color: var(--ink);
   }
 
   .paper-journal {
     margin-top: 0.5rem;
     font-size: 0.93rem;
+  }
+
+  .abstract-with-figure {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+    margin-top: 0.8rem;
+  }
+
+  .abstract-with-figure .paper-abstract {
+    margin-top: 0;
+    flex: 1;
+  }
+
+  .paper-figure {
+    width: 200px;
+    flex-shrink: 0;
+    display: block;
   }
 
   .paper-journal em { font-style: italic; }
@@ -262,7 +280,7 @@
       <h1>Hi, I'm Jason</h1>
       <p>I am a PhD candidate in Finance at INSEAD, based in the Fontainebleau campus. Starting this fall, I will be joining SKEMA Business School as an Assistant Professor of Finance.</p>
       <p style="margin-top:1em"><span style="text-decoration:underline;font-weight:500;">Research:</span> My main research area is Corporate Investment. I also work on related topics in capital budgeting and capital structure. </p>
-      <p>Email: <a href="/cdn-cgi/l/email-protection#3852594b5756165359565f7851564b5d595c165d5c4d"><span class="__cf_email__" data-cfemail="f892998b9796d69399969fb891968b9d999cd69d9c8d">[email&#160;protected]</span></a></p>
+      <p>Email: <a href="mailto:jason.kang@insead.edu">jason.kang@insead.edu</a></p>
       <a href="CV - Kang, Jason.pdf">[CV]</a>
     </div>
 
@@ -301,7 +319,7 @@
         </div>
         <button class="toggle-btn" onclick="togglePaper(this)" aria-label="Expand"><span class="tri"></span> Abstract</button>
         <div class="paper-body"><div class="paper-body-inner">
-          <p class="paper-abstract">Does uncertainty increase or decrease investment? Empirical evidence remains decidedly mixed, both in the time-series and in the cross-section. I present a dynamic model of investment that unifies these seemingly conflicting facts. Central to the analysis, I use a new statistic$-$the distance to investment$-$which measures how close a project is to having a positive net present value. I derive closed-form expressions for optimal investment under stochastic volatility and find three main results. (1) Over a fixed time horizon, high average uncertainty is associated with higher investment if the initial distance is ``far'', but lower investment if the distance is ``close''. (2) Uncertainty shocks increase investment only when they coincide with higher expected growth rates. (3) In general equilibrium, an uncertainty shock can raise investment during economic contractions, contrary to the partial-equilibrium intuition.</p>
+          <p class="paper-abstract">Does uncertainty increase or decrease investment? Empirical evidence remains decidedly mixed, both in the time-series and in the cross-section. I present a dynamic model of investment that unifies these seemingly conflicting facts. Central to the analysis, I use a new statistic--the distance to investment--which measures how close a project is to having a positive net present value. I derive closed-form expressions for optimal investment under stochastic volatility and find three main results. (1) Over a fixed time horizon, high average uncertainty is associated with higher investment if the initial distance is ``far'', but lower investment if the distance is ``close''. (2) Uncertainty shocks increase investment only when they coincide with higher expected growth rates. (3) In general equilibrium, an uncertainty shock can raise investment during economic contractions, contrary to the partial-equilibrium intuition.</p>
         </div></div>
       </div>
 
@@ -320,6 +338,13 @@
     </div>
   </div>
 
-  
-  
-  <!-- </
+</div>
+</div>
+
+<script>
+  function togglePaper(btn) {
+    btn.closest('.paper').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
