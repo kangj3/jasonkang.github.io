@@ -216,9 +216,10 @@
     transition: grid-template-rows 0.32s ease;
   }
 
-  .paper.open .paper-body { grid-template-rows: 1fr;   margin-left: -100px;
-  margin-right: -100px;}
+  .paper.open .paper-body { grid-template-rows: 1fr; }
 
+ /*margin-left: -100px;
+  margin-right: -100px;*/
   .paper-body-inner { overflow: hidden; }
 
   .paper-abstract {
@@ -325,10 +326,10 @@
         </div>
         <button class="toggle-btn" onclick="togglePaper(this)" aria-label="Expand"><span class="tri"></span> Abstract</button>
         <div class="paper-body"><div class="paper-body-inner">
-          <div class="abstract-with-figure">
-            <p class="paper-abstract">Does uncertainty increase or decrease investment? Empirical evidence remains decidedly mixed, both in the time-series and in the cross-section. I present a dynamic model of investment that unifies these seemingly conflicting facts. Central to the analysis, I use a new statistic--the distance to investment--which measures how close a project is to having a positive net present value. I derive closed-form expressions for optimal investment under stochastic volatility and find three main results. (1) Over a fixed time horizon, high average uncertainty is associated with higher investment if the initial distance is ``far'', but lower investment if the distance is ``close''. (2) Uncertainty shocks increase investment only when they coincide with higher expected growth rates. (3) In general equilibrium, an uncertainty shock can raise investment during economic contractions, contrary to the partial-equilibrium intuition.</p>
-            <img src="Figures/paper_2.jpeg" alt="Figure" class="paper-figure">
-          </div>
+          <!-- <div class="abstract-with-figure"> -->
+          <p class="paper-abstract">Does uncertainty increase or decrease investment? Empirical evidence remains decidedly mixed, both in the time-series and in the cross-section. I present a dynamic model of investment that unifies these seemingly conflicting facts. Central to the analysis, I use a new statistic--the distance to investment--which measures how close a project is to having a positive net present value. I derive closed-form expressions for optimal investment under stochastic volatility and find three main results. (1) Over a fixed time horizon, high average uncertainty is associated with higher investment if the initial distance is ``far'', but lower investment if the distance is ``close''. (2) Uncertainty shocks increase investment only when they coincide with higher expected growth rates. (3) In general equilibrium, an uncertainty shock can raise investment during economic contractions, contrary to the partial-equilibrium intuition.</p>
+            <!-- <img src="Figures/paper_2.jpeg" alt="Figure" class="paper-figure"> -->
+          <!-- </div> -->
         </div></div>
       </div>
 
