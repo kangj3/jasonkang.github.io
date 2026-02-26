@@ -139,6 +139,11 @@
     margin: 0 auto;
   }
 
+/*  .paper.open {
+    margin-left: -100px;
+    margin-right: -100px;
+  }*/
+
   .paper {
     padding: 0.55rem 0;
   }
@@ -211,7 +216,8 @@
     transition: grid-template-rows 0.32s ease;
   }
 
-  .paper.open .paper-body { grid-template-rows: 1fr; }
+  .paper.open .paper-body { grid-template-rows: 1fr;   margin-left: -100px;
+  margin-right: -100px;}
 
   .paper-body-inner { overflow: hidden; }
 
@@ -240,7 +246,7 @@
   }
 
   .paper-figure {
-    width: 200px;
+    width: 400px;
     flex-shrink: 0;
     display: block;
   }
